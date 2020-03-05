@@ -1,4 +1,4 @@
-FROM acockburn/appdaemon:dev
+FROM acockburn/appdaemon:4.0.3
 RUN pip3 install --no-cache-dir pymysql \
  && apk add git
 ARG CACHEBUST=1
