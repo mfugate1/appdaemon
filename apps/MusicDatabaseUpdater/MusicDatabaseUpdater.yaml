@@ -1,0 +1,25 @@
+MusicDatabaseUpdater:
+  module: MusicDatabaseUpdater
+  class: MusicDatabaseUpdater
+  app_switch: input_boolean.music_database_updater
+  bootstrap_db_event: APPDAEMON_BOOTSTRAP_DB
+  rescan_event: APPDAEMON_RESCAN_LMS
+  update_music_event: APPDAEMON_UPDATE_MUSIC_DB
+  db: music
+  table: song_lookup
+  table_columns:
+    - id INT NOT NULL UNIQUE
+    - artist TEXT NOT NULL
+    - album TEXT NOT NULL
+    - title TEXT NOT NULL
+    - genre TEXT
+    - duration DOUBLE
+    - tags TEXT
+    - dont_play DATETIME
+    - last_played DATETIME
+  rescan_check_interval: 10
+  schedule_time: '01:05:00'
+  global_dependencies:
+    - db_utils
+    - lms_utils
+    - secrets

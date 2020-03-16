@@ -1,0 +1,13 @@
+appdaemon:
+  time_zone: !secret time_zone
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: !secret elevation
+  threads: 10
+  plugins:
+    HASS:
+      type: hass
+      ha_url: !secret ha_url
+      token: !secret hass_token
+hadashboard:
+  dash_url: !secret dash_url
