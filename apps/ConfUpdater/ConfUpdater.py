@@ -11,4 +11,5 @@ class ConfUpdater(hass.Hass):
             self.cancel_timer(self.run_event_listener)
             
     def run_updater(self, event_name, data, kwargs):
+        self.log("[run_updater] Pulling latest configuration")
         subprocess.Popen(['/usr/bin/git', 'pull'], cwd = '/conf')
