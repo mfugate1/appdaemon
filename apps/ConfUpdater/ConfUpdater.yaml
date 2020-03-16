@@ -1,0 +1,4 @@
+ConfUpdater:
+  module: ConfUpdater
+  class: ConfUpdater
+  event: RUN_CONF_UPDATER
