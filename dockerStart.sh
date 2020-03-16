@@ -3,9 +3,17 @@
 CONF=/conf
 CONF_SRC=/usr/src/app/conf
 
+GIT_REPO_URL=https://github.com/mfugate1/appdaemon.git
+GIT_BRANCH=master
+
 # if configuration file doesn't exist, clone the repo into conf
 if [ ! -f $CONF/appdaemon.yaml ]; then
-  git clone https://github.com/mfugate1/appdaemon.git /conf
+  cd /conf
+  git init
+  git remote add origin ${GIT_REPO_URL}
+  git fetch
+  git checkout -t origin/${GIT_BRANCH}
+  cd -
 fi
 
 #check recursively under CONF for additional python dependencies defined in requirements.txt
