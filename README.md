@@ -1,3 +1,3 @@
-# appdaemon-docker
+# appdaemon
 
-Based off of acockburn/appdaemon, plus pymysql and mfugate1/sleepyq python libraries
+Custom appdaemon docker container with apps
