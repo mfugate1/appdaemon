@@ -4,6 +4,7 @@ RUN pip3 install --no-cache-dir pymysql \
  && apk add git
  
 COPY dockerStart.sh /usr/src/app
+RUN chmod +x /usr/src/app/dockerStart.sh
  
 # Change the CACHEBUST variables to force the image to pick up changes from that repo
 
