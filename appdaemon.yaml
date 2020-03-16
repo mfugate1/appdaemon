@@ -9,5 +9,6 @@ appdaemon:
       type: hass
       ha_url: !secret ha_url
       token: !secret hass_token
-hadashboard:
-  dash_url: !secret dash_url
+http:
+  url: !secret dash_url
+api:
