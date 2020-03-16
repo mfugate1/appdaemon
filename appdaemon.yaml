@@ -3,7 +3,6 @@ appdaemon:
   latitude: !secret latitude
   longitude: !secret longitude
   elevation: !secret elevation
-  threads: 10
   plugins:
     HASS:
       type: hass
