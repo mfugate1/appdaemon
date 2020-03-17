@@ -1,3 +1,4 @@
+import datetime
 import hassapi as hass
 import lms_utils
 import pymysql.cursors
