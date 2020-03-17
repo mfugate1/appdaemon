@@ -18,7 +18,7 @@ MusicDatabaseUpdater:
     - dont_play DATETIME
     - last_played DATETIME
   rescan_check_interval: 10
-  schedule_time: '01:05:00'
+  daily_run_time: '01:05:00'
   global_dependencies:
     - db_utils
     - lms_utils
