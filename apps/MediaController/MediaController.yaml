@@ -1,0 +1,67 @@
+MediaController:
+  module: MediaController
+  class: MediaController
+  event: MEDIA_CONTROLLER_COMMAND
+  rooms:
+    basement:
+      alexa: media_player.basement_echo_dot
+      tv: media_player.basement_tv
+      receiver: switch.basement_stereo
+      sources:
+        ps4:
+          tv_source: HDMI_IN_4
+          media:
+            service: media_player.turn_on
+            entity_id: media_player.playstation_4_office
+    gameroom:
+      alexa: media_player.game_room_echo_dot
+      tv: media_player.game_room_tv
+      receiver: media_player.game_room_receiver
+      sources:
+        ps4:
+          tv_source: HDMI2
+          receiver_source: Video 3
+          media:
+            service: media_player.turn_on
+            entity_id: media_player.playstation_4
+    livingroom:
+      alexa: media_player.living_room_echo
+      tv: media_player.living_room_tv
+      receiver: media_player.living_room_receiver
+      sources:
+        hulu:
+          tv_source: HDMI_IN_2
+          receiver_source: tv/cd
+          media:
+            entity_id: media_player.living_room_roku
+            source: Hulu
+        music:
+          receiver_source: 
+        netflix:
+          tv_source: HDMI_IN_2
+          receiver_source: tv/cd
+          media:
+            entity_id: media_player.living_room_roku
+            source: Netflix
+        plex:
+          tv_source: HDMI_IN_2
+          receiver_source: tv/cd
+          media:
+            service: media_player.select_source
+            entity_id: media_player.living_room_roku
+            data:
+              source: Plex - Stream Free TV & Movies
+        ps4:
+          tv_source: HDMI_IN_3
+          receiver_source: tv/cd
+          media:
+            service: media_player.turn_on
+            entity_id: media_player.playstation_4_office
+        youtube:
+          tv_source: HDMI_IN_2
+          receiver_source: tv/cd
+          media:
+            entity_id: media_player.living_room_roku
+            source: YouTube
+    
+            
