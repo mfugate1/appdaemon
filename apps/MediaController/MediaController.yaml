@@ -11,7 +11,7 @@ MediaController:
         ps4:
           tv_source: HDMI_IN_4
           media:
-            service: media_player.turn_on
+            service: media_player/turn_on
             entity_id: media_player.playstation_4_office
     gameroom:
       alexa: media_player.game_room_echo_dot
@@ -22,7 +22,7 @@ MediaController:
           tv_source: HDMI2
           receiver_source: Video 3
           media:
-            service: media_player.turn_on
+            service: media_player/turn_on
             entity_id: media_player.playstation_4
     livingroom:
       alexa: media_player.living_room_echo
@@ -33,21 +33,25 @@ MediaController:
           tv_source: HDMI_IN_2
           receiver_source: tv/cd
           media:
+            service: media_player/select_source
             entity_id: media_player.living_room_roku
-            source: Hulu
+            data:
+              source: Hulu
         music:
-          receiver_source: 
+          receiver_source: Video 2
         netflix:
           tv_source: HDMI_IN_2
           receiver_source: tv/cd
           media:
+            service: media_player/select_source
             entity_id: media_player.living_room_roku
-            source: Netflix
+            data:
+              source: Netflix
         plex:
           tv_source: HDMI_IN_2
           receiver_source: tv/cd
           media:
-            service: media_player.select_source
+            service: media_player/select_source
             entity_id: media_player.living_room_roku
             data:
               source: Plex - Stream Free TV & Movies
@@ -55,13 +59,15 @@ MediaController:
           tv_source: HDMI_IN_3
           receiver_source: tv/cd
           media:
-            service: media_player.turn_on
+            service: media_player/turn_on
             entity_id: media_player.playstation_4_office
         youtube:
           tv_source: HDMI_IN_2
           receiver_source: tv/cd
           media:
+            service: media_player/select_source
             entity_id: media_player.living_room_roku
-            source: YouTube
+            data:
+              source: YouTube
     
             
