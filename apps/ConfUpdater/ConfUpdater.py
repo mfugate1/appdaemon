@@ -13,3 +13,4 @@ class ConfUpdater(hass.Hass):
     def run_updater(self, event_name, data, kwargs):
         self.log("[run_updater] Pulling latest configuration")
         subprocess.Popen(['/usr/bin/git', 'pull'], cwd = '/conf')
+        subprocess.Popen(['/usr/local/bin/pip3', 'install', '-e', 'git+https://github.com/mfugate1/sleepyq.git#egg=sleepyq'])
