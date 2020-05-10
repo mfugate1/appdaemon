@@ -37,11 +37,11 @@ class BedController(hass.Hass):
     
     def set_position(self, entity, attribute, old, new, kwargs):
         self.log('[set_position] Setting bed position, actuator = {}, position = {}'.format(kwargs['actuator'], new))
-        self.client.set_foundation_position('r', kwargs['actuator'], int(new))
+        self.client.set_foundation_position('r', kwargs['actuator'], float(new))
     
     def set_sleepnumber(self, entity, attribute, old, new, kwargs):
         self.log('[set_sleepnumber] Setting bed sleep number, side = {}, value = {}'.format(kwargs['side'], new))
-        self.client.set_sleepnumber(kwargs['side'], int(new))
+        self.client.set_sleepnumber(kwargs['side'], float(new))
     
     def start_state_listeners(self):
         self.preset_listener = self.listen_state(self.preset, self.args['preset_entity'])
