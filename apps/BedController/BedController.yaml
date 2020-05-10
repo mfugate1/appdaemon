@@ -1,0 +1,10 @@
+BedController:
+  module: BedController
+  class: BedController
+  foot_position_entity: input_number.bed_position_foot
+  head_position_entity: input_number.bed_position_head
+  right_sleep_number_entity: input_number.bed_sleep_number_right
+  left_sleep_number_entity: input_number.bed_sleep_number_left
+  preset_entity: input_select.bed_presets
+  update_delay_after_command: 60
+  stop_motion_event: STOP_BED_MOTION
