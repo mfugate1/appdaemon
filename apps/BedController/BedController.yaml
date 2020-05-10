@@ -6,5 +6,5 @@ BedController:
   right_sleep_number_entity: input_number.bed_sleep_number_right
   left_sleep_number_entity: input_number.bed_sleep_number_left
   preset_entity: input_select.bed_presets
-  update_delay_after_command: 60
+  update_interval_seconds: 600
   stop_motion_event: STOP_BED_MOTION

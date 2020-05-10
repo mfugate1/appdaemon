@@ -1,5 +1,7 @@
+from datetime import datetime
 from sleepyq import Sleepyq
 
+import datetime
 import hassapi as hass
 import secrets
 
@@ -16,7 +18,7 @@ class BedController(hass.Hass):
 
     def initialize(self):
         self.client = self.get_client()
-        self.run_in(self.start_update_timer, 0)
+        self.update_timer = self.run_every(self.update, datetime.now().time(), self.args['update_interval_seconds'])
         self.stop_motion_listener = self.listen_event(self.stop_motion, self.args['stop_motion_event'])
         self.start_state_listeners()
         
@@ -32,21 +34,15 @@ class BedController(hass.Hass):
         
     def preset(self, entity, attribute, old, new, kwargs):
         self.log('[preset] Setting bed to preset position {}'.format(new))
-        self.cancel_timer(self.update_timer)
         self.client.preset(BED_PRESETS[new], 'r')
-        self.run_in(self.start_update_timer, self.args['update_delay_after_command'])
     
     def set_position(self, entity, attribute, old, new, kwargs):
         self.log('[set_position] Setting bed position, actuator = {}, position = {}'.format(kwargs['actuator'], new))
-        self.cancel_timer(self.update_timer)
         self.client.set_foundation_position('r', kwargs['actuator'], int(new))
-        self.run_in(self.start_update_timer, self.args['update_delay_after_command'])
     
     def set_sleepnumber(self, entity, attribute, old, new, kwargs):
         self.log('[set_sleepnumber] Setting bed sleep number, side = {}, value = {}'.format(kwargs['side'], new))
-        self.cancel_timer(self.update_timer)
         self.client.set_sleepnumber(kwargs['side'], int(new))
-        self.run_in(self.start_update_timer, self.args['update_delay_after_command'])
     
     def start_state_listeners(self):
         self.preset_listener = self.listen_state(self.preset, self.args['preset_entity'])
@@ -54,9 +50,6 @@ class BedController(hass.Hass):
         self.set_head_position_listener = self.listen_state(self.set_position, self.args['head_position_entity'], actuator = 'h')
         self.set_left_sleepnumber_listener = self.listen_state(self.set_sleepnumber, self.args['left_sleep_number_entity'], side = 'l')
         self.set_right_sleepnumber_listener = self.listen_state(self.set_sleepnumber, self.args['right_sleep_number_entity'], side = 'r')
-    
-    def start_update_timer(self, kwargs):
-        self.update_timer = self.run_minutely(self.update)
     
     def stop_motion(self, event_name, data, kwargs):
         self.client.stop_motion('r')
