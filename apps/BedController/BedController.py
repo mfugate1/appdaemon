@@ -1,7 +1,6 @@
 from datetime import datetime
 from sleepyq import Sleepyq
 
-import datetime
 import hassapi as hass
 import secrets
 
