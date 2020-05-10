@@ -17,7 +17,7 @@ class BedController(hass.Hass):
 
     def initialize(self):
         self.client = self.get_client()
-        self.update_timer = self.run_every(self.update, datetime.now().time(), self.args['update_interval_seconds'])
+        self.update_timer = self.run_every(self.update, datetime.now(), self.args['update_interval_seconds'])
         self.stop_motion_listener = self.listen_event(self.stop_motion, self.args['stop_motion_event'])
         self.start_state_listeners()
         
