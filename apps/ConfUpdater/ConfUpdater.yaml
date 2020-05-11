@@ -1,4 +1,5 @@
 ConfUpdater:
   module: ConfUpdater
   class: ConfUpdater
-  event: RUN_CONF_UPDATER
+  git_pull_event: APPDAEMON_GIT_PULL
+  update_sleepyq_event: APPDAEMON_UPDATE_SLEEPYQ
