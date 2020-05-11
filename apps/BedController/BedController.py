@@ -23,7 +23,7 @@ class BedController(hass.Hass):
         self.stop_motion_listener = self.listen_event(self.stop_motion, self.args['stop_motion_event'])
         
     def terminate(self):
-        self.stop_state_listeners()
+        self.cancel_state_listeners()
         self.cancel_update_timer()
             
     def start_state_listeners(self):
@@ -81,7 +81,7 @@ class BedController(hass.Hass):
     def update(self, kwargs):
         foundationStatus = self.client.foundation_status()
         
-        self.stop_state_listeners()
+        self.cancel_state_listeners()
         
         if foundationStatus.fsCurrentPositionPresetRight != 'Not at preset':
             self.select_option(self.args['preset_entity'], foundationStatus.fsCurrentPositionPresetRight)
