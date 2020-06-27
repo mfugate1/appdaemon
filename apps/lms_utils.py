@@ -7,6 +7,17 @@ def get_all_tracks(host):
     total = lms_request(host, ["-",["info", "total", "songs", "?"]])['result']['_songs']
     return lms_request(host, ["-", ["titles", "0", total]])['result']['titles_loop']
     
+def get_player_count(host):
+    return lms_request(host, ["-", ["player", "count", "?"]])['result']['_count']
+    
+def get_players(host):
+    players = {}
+    for i in range(get_player_count(host)):
+        name = lms_request(host, ["-", ["player", "name", i, "?"]])['result']['_name']
+        players[name] = {'index': i}
+        players[name]['mac'] = lms_request(host, ["-", ["player", "id", i, "?"]])['result']['_id']
+    return players
+    
 def lms_request(host, params):
     r = requests.post(host, json={"id":1,"method":"slim.request","params":params})
     return r.json()
