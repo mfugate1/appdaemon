@@ -1,4 +1,4 @@
-FROM acockburn/appdaemon:4.0.4
+FROM acockburn/appdaemon:4.0.5
 
 RUN pip3 install --no-cache-dir pymysql \
  && apk add git
