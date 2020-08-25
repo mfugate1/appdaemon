@@ -1,4 +1,5 @@
 from datetime import datetime
+from pytz import timezone
 from sleepyq import Sleepyq
 
 import hassapi as hass
@@ -45,7 +46,7 @@ class BedController(hass.Hass):
             self.cancel_listen_state(self.set_right_sleepnumber_listener)
             
     def start_update_timer(self):
-        self.update_timer = self.run_every(self.update, datetime.now(), self.args['update_interval_seconds'])
+        self.update_timer = self.run_every(self.update, datetime.now(tz=timezone(secrets.TIMEZONE)), self.args['update_interval_seconds'])
         
     def cancel_update_timer(self):
         if hasattr(self, 'update_timer'):
