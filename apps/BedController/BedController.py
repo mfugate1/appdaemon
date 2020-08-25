@@ -19,7 +19,7 @@ class BedController(hass.Hass):
         self.client = self.get_client()
         self.start_update_timer()
         self.start_state_listeners()
-        self.run_in(self.update, 0)
+        self.start_update_timer()
         self.stop_motion_listener = self.listen_event(self.stop_motion, self.args['stop_motion_event'])
         
     def terminate(self):
