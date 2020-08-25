@@ -84,14 +84,22 @@ class BedController(hass.Hass):
         self.cancel_state_listeners()
         
         if foundationStatus.fsCurrentPositionPresetRight != 'Not at preset':
-            self.select_option(self.args['preset_entity'], foundationStatus.fsCurrentPositionPresetRight)
+            #self.select_option(self.args['preset_entity'], foundationStatus.fsCurrentPositionPresetRight)
+            self.call_service('input_select/select_option', entity_id = self.args['preset_entity'], option = foundationStatus.fsCurrentPositionPresetRight)
             
-        self.set_value(self.args['foot_position_entity'], foundationStatus.fsRightFootPosition)
-        self.set_value(self.args['head_position_entity'], foundationStatus.fsRightHeadPosition)
+        #self.set_value(self.args['foot_position_entity'], foundationStatus.fsRightFootPosition)
+        #self.set_value(self.args['head_position_entity'], foundationStatus.fsRightHeadPosition)
+
+
+        self.call_service('input_number/set_value', entity_id = self.args['foot_position_entity'], value = foundationStatus.fsRightFootPosition)
+        self.call_service('input_number/set_value', entity_id = self.args['head_position_entity'], value = foundationStatus.fsRightHeadPosition)
         
         sleeperStatus = self.client.beds_with_sleeper_status()[0]
         
-        self.set_value(self.args['left_sleep_number_entity'], sleeperStatus.left.sleepNumber)
-        self.set_value(self.args['right_sleep_number_entity'], sleeperStatus.right.sleepNumber)
+        #self.set_value(self.args['left_sleep_number_entity'], sleeperStatus.left.sleepNumber)
+        #self.set_value(self.args['right_sleep_number_entity'], sleeperStatus.right.sleepNumber)
+
+        self.call_service('input_number/set_value', entity_id = self.args['left_sleep_number_entity'], value = sleeperStatus.left.sleepNumber)
+        self.call_service('input_number/set_value', entity_id = self.args['right_sleep_number_entity'], value = sleeperStatus.right.sleepNumber)
         
         self.start_state_listeners()
