@@ -2,6 +2,9 @@ MediaController:
   module: MediaController
   class: MediaController
   event: MEDIA_CONTROLLER_COMMAND
+  device_config:
+    media_player.living_room_tv:
+      source_command_delay: 1
   rooms:
     basement:
       alexa: media_player.basement_echo_dot
@@ -31,7 +34,7 @@ MediaController:
       sources:
         hulu:
           tv_source: HDMI_IN_2
-          receiver_source: tv/cd
+          receiver_source: cd_tv/cd
           media:
             service: media_player/select_source
             entity_id: media_player.living_room_roku
@@ -41,7 +44,7 @@ MediaController:
           receiver_source: Video 2
         netflix:
           tv_source: HDMI_IN_2
-          receiver_source: tv/cd
+          receiver_source: cd_tv/cd
           media:
             service: media_player/select_source
             entity_id: media_player.living_room_roku
@@ -49,7 +52,7 @@ MediaController:
               source: Netflix
         plex:
           tv_source: HDMI_IN_2
-          receiver_source: tv/cd
+          receiver_source: cd_tv/cd
           media:
             service: media_player/select_source
             entity_id: media_player.living_room_roku
@@ -57,13 +60,13 @@ MediaController:
               source: Plex - Stream Free TV & Movies
         ps4:
           tv_source: HDMI_IN_3
-          receiver_source: tv/cd
+          receiver_source: cd_tv/cd
           media:
             service: media_player/turn_on
             entity_id: media_player.playstation_4_office
         youtube:
           tv_source: HDMI_IN_2
-          receiver_source: tv/cd
+          receiver_source: cd_tv/cd
           media:
             service: media_player/select_source
             entity_id: media_player.living_room_roku
