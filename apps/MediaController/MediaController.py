@@ -50,19 +50,18 @@ class MediaController(hass.Hass):
             self.call_service(media['service'], entity_id = media['entity_id'], **media_data)
 
     def media_player_on(self, kwargs):
-        delay = 0
         if self.get_state(kwargs['entity_id']) == 'off':
             self.turn_on(kwargs['entity_id'])
-            delay = 4
-            
-        self.run_in(self.media_player_set_source, delay, **kwargs)
-            
-    def media_player_set_source(self, kwargs):
-        self.call_service('media_player/select_source', **kwargs)
+
+        self.listen_state(self.media_player_set_source, kwargs['entity_id'], new = 'on', duration = 0, immediate = True, oneshot = True, **kwargs)
+
+    def media_player_set_source(self, entity, attribute, old, new, kwargs):
+        if (self.get_state(entity, attribute = 'source', copy = False) != kwargs['source']):
+            self.call_service('media_player/select_source', **kwargs)
     
     def get_last_used_alexa(self):
         for room, values in self.args['rooms'].items():
-            if self.get_state(values['alexa'], attribute='last_called'):
+            if self.get_state(values['alexa'], attribute='last_called', copy = False):
                 return room
         return ''
         
