@@ -57,6 +57,7 @@ class MediaController(hass.Hass):
 
     def media_player_set_source(self, entity, attribute, old, new, kwargs):
         if (self.get_state(entity, attribute = 'source', copy = False) != kwargs['source']):
+            self.log('Selecting source: {}'.format(str(kwargs)))
             self.call_service('media_player/select_source', **kwargs)
     
     def get_last_used_alexa(self):
