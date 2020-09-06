@@ -5,6 +5,8 @@ MediaController:
   device_config:
     media_player.living_room_tv:
       source_command_delay: 1
+    media_player.living_room_receiver:
+      source_command_delay: 1
   rooms:
     basement:
       alexa: media_player.basement_echo_dot
