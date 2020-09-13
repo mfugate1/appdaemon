@@ -3,9 +3,9 @@ MediaController:
   class: MediaController
   event: MEDIA_CONTROLLER_COMMAND
   device_config:
-    media_player.living_room_tv:
+    media_player.livingroom_tv:
       source_command_delay: 1
-    media_player.living_room_receiver:
+    media_player.livingroom_receiver:
       source_command_delay: 1
   rooms:
     basement:
@@ -19,9 +19,9 @@ MediaController:
             service: media_player/turn_on
             entity_id: media_player.playstation_4_office
     gameroom:
-      alexa: media_player.game_room_echo_dot
-      tv: media_player.game_room_tv
-      receiver: media_player.game_room_receiver
+      alexa: media_player.gameroom_echo_dot
+      tv: media_player.gameroom_tv
+      receiver: media_player.gameroom_receiver
       sources:
         ps4:
           tv_source: HDMI2
@@ -30,16 +30,16 @@ MediaController:
             service: media_player/turn_on
             entity_id: media_player.playstation_4
     livingroom:
-      alexa: media_player.living_room_echo
-      tv: media_player.living_room_tv
-      receiver: media_player.living_room_receiver
+      alexa: media_player.livingroom_echo
+      tv: media_player.livingroom_tv
+      receiver: media_player.livingroom_receiver
       sources:
         hulu:
           tv_source: HDMI_IN_2
           receiver_source: cd_tv/cd
           media:
             service: media_player/select_source
-            entity_id: media_player.living_room_roku
+            entity_id: media_player.livingroom_roku
             data:
               source: Hulu
         music:
@@ -49,7 +49,7 @@ MediaController:
           receiver_source: cd_tv/cd
           media:
             service: media_player/select_source
-            entity_id: media_player.living_room_roku
+            entity_id: media_player.livingroom_roku
             data:
               source: Netflix
         plex:
@@ -57,7 +57,7 @@ MediaController:
           receiver_source: cd_tv/cd
           media:
             service: media_player/select_source
-            entity_id: media_player.living_room_roku
+            entity_id: media_player.livingroom_roku
             data:
               source: Plex - Stream Free TV & Movies
         ps4:
