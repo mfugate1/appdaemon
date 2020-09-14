@@ -3,7 +3,7 @@ import hassapi as hass
 class MediaController(hass.Hass):
 
     def initialize(self):
-        self.event_listener = self.listen_event(self.media_controller_command, self.args.get('event', 'MEDIA_CONTROLLER_COMMAND'))
+        self.event_listener = self.listen_event(self.media_controller_command, self.args['event'])
         
     def terminate(self):
         if hasattr(self, 'event_listener'):
@@ -13,7 +13,7 @@ class MediaController(hass.Hass):
         if 'room' in data:
             room = data['room']
         else:
-            room = self.get_last_used_alexa()
+            room = self.get_state(self.args['last_called_room_entity'], copy = False)
             
         if not room:
             self.log("[media_controller_command] No room given or found with alexa last_called")
@@ -65,11 +65,4 @@ class MediaController(hass.Hass):
     def media_player_set_source(self, kwargs):
         self.log('Setting source for {} to {}'.format(kwargs['entity_id'], kwargs['source']))
         self.call_service('media_player/select_source', entity_id = kwargs['entity_id'], source = kwargs['source'])
-    
-    def get_last_used_alexa(self):
-        for room, values in self.args['rooms'].items():
-            if self.get_state(values['alexa'], attribute='last_called', copy = False):
-                return room
-        return ''
-        
     
