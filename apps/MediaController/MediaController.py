@@ -52,9 +52,10 @@ class MediaController(hass.Hass):
     def media_player_on(self, kwargs):
         if self.get_state(kwargs['entity_id']) == 'off':
             self.turn_on(kwargs['entity_id'])
-
-        self.listen_state(self.media_player_state_on, kwargs['entity_id'], new = 'on', duration = 0, immediate = True, oneshot = True, **kwargs)
-
+            self.listen_state(self.media_player_state_on, kwargs['entity_id'], new = 'on', duration = 0, immediate = True, oneshot = True, **kwargs)
+        else:
+            self.run_in(self.media_player_set_source, 0, **kwargs)
+            
     def media_player_state_on(self, entity, attribute, old, new, kwargs):
         if (self.get_state(entity, attribute = 'source', copy = False) != kwargs['source']):
             delay = 0
