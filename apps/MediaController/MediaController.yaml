@@ -5,7 +5,7 @@ MediaController:
   last_called_room_entity: sensor.alexa_last_called_room
   device_config:
     media_player.livingroom_tv:
-      source_command_delay: 1
+      source_command_delay: 3
     media_player.livingroom_receiver:
       source_command_delay: 1
   rooms:
