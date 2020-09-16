@@ -22,6 +22,10 @@ class MediaController(hass.Hass):
         if 'source' not in data:
             self.log("[media_controller_command] Missing source, nothing to do!")
             return
+
+        if room not in self.args['rooms']:
+            self.log("[media_controller_command] A room called {} is not defined in the configuration".format(room))
+            return
             
         source = data['source']
         room_info = self.args['rooms'][room]
