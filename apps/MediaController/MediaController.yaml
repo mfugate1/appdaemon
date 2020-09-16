@@ -70,6 +70,9 @@ MediaController:
         steam:
           tv_source: HDMI_IN_1
           receiver_source: cd_tv/cd
+          media:
+            service: switch/turn_on
+            entity_id: switch.pc
         youtube:
           tv_source: HDMI_IN_2
           receiver_source: cd_tv/cd
