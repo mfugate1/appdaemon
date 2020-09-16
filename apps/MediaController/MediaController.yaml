@@ -27,6 +27,7 @@ MediaController:
         ps4:
           tv_source: HDMI2
           receiver_source: Video 3
+          delay: 5
           media:
             service: media_player/turn_on
             entity_id: media_player.playstation_4

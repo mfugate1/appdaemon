@@ -46,12 +46,11 @@ class MediaController(hass.Hass):
             
         if 'media' in source_info:
             media = source_info['media']
-            if 'data' in media:
-                media_data = media['data']
-            else:
-                media_data = {}
+            delay = 0
+            if 'delay' in media:
+                delay = media['delay']
                 
-            self.call_service(media['service'], entity_id = media['entity_id'], **media_data)
+            self.run_in(self.media_call_service, delay, media = media)
 
     def media_player_on(self, kwargs):
         if self.get_state(kwargs['entity_id']) == 'off':
@@ -71,3 +70,9 @@ class MediaController(hass.Hass):
         self.log('Setting source for {} to {}'.format(kwargs['entity_id'], kwargs['source']))
         self.call_service('media_player/select_source', entity_id = kwargs['entity_id'], source = kwargs['source'])
     
+    def media_call_service(self, kwargs):
+        media_data = {}
+        if 'data' in kwargs['media']:
+            media_data = kwargs['media']['data']
+        
+        self.call_service(kwargs['media']['service'], entity_id = kwargs['media']['entity_id'], **media_data)
