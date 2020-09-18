@@ -49,11 +49,13 @@ class MediaController(hass.Hass):
             delay = 0
             if 'delay' in media:
                 delay = media['delay']
+                self.log("[media_controller_command] Delay for service call set to {}".format(delay))
                 
             self.run_in(self.media_call_service, delay, media = media)
 
     def media_player_on(self, kwargs):
         if self.get_state(kwargs['entity_id']) == 'off':
+            self.log("[media_player_on] Turning on {}".format(kwargs['entity_id']))
             self.turn_on(kwargs['entity_id'])
             self.listen_state(self.media_player_state_on, kwargs['entity_id'], new = 'on', duration = 0, immediate = True, oneshot = True, **kwargs)
         else:
@@ -65,9 +67,11 @@ class MediaController(hass.Hass):
             if entity in self.args['device_config'] and 'source_command_delay' in self.args['device_config'][entity]:
                 delay = self.args['device_config'][entity]['source_command_delay']
             self.run_in(self.media_player_set_source, delay, **kwargs)
+        else:
+            self.log("[media_player_state_on] Source of {} is already set to {}".format(entity, kwargs['source']))
 
     def media_player_set_source(self, kwargs):
-        self.log('Setting source for {} to {}'.format(kwargs['entity_id'], kwargs['source']))
+        self.log('[media_player_set_source] Setting source for {} to {}'.format(kwargs['entity_id'], kwargs['source']))
         self.call_service('media_player/select_source', entity_id = kwargs['entity_id'], source = kwargs['source'])
     
     def media_call_service(self, kwargs):
@@ -75,4 +79,5 @@ class MediaController(hass.Hass):
         if 'data' in kwargs['media']:
             media_data = kwargs['media']['data']
         
+        self.log("[media_call_service] Calling service {} for {}".format(kwargs['media']['service'], kwargs['media']['entity_id']))
         self.call_service(kwargs['media']['service'], entity_id = kwargs['media']['entity_id'], **media_data)
