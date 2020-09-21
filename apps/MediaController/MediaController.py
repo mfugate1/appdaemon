@@ -10,10 +10,13 @@ class MediaController(hass.Hass):
             self.cancel_listen_event(self.event_listener)
         
     def media_controller_command(self, event_name, data, kwargs):
+        alexa_response = False
+
         if 'room' in data:
             room = data['room']
         else:
             room = self.get_state(self.args['last_called_room_entity'], copy = False)
+            alexa_response = True
             
         if not room:
             self.log("[media_controller_command] No room given or found with alexa last_called")
@@ -24,15 +27,20 @@ class MediaController(hass.Hass):
             return
 
         if room not in self.args['rooms']:
-            self.log("[media_controller_command] A room called {} is not defined in the configuration".format(room))
+            message = "A room called {} is not defined in the configuration".format(room)
+            self.log("[media_controller_command] {}".format(message))
+            if alexa_response:
+                self.call_service('notify/alexa_media', target = self.get_state(self.args['last_called_device_entity'], data = {'type': 'tts'}, message = message)
             return
             
         source = data['source']
         room_info = self.args['rooms'][room]
             
         if source not in room_info['sources']:
-            self.log("[media_controller_command] {} is not a source in {}".format(source, room))
-            self.call_service('notify/alexa_media', target = self.get_state(self.args['last_called_device_entity'], copy = False), data = {'type': 'tts'}, message = "{} is not a source in {}".format(source, room))
+            message = "{} is not a source in {}".format(source, room)
+            self.log("[media_controller_command] {}".format(message))
+            if alexa_response:
+                self.call_service('notify/alexa_media', target = self.get_state(self.args['last_called_device_entity'], copy = False), data = {'type': 'tts'}, message = message)
             return
         
         self.log("[media_controller_command] Room = {}, Source = {}".format(room, data['source']))
