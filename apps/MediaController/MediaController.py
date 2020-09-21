@@ -30,7 +30,7 @@ class MediaController(hass.Hass):
             message = "A room called {} is not defined in the configuration".format(room)
             self.log("[media_controller_command] {}".format(message))
             if alexa_response:
-                self.call_service('notify/alexa_media', target = self.get_state(self.args['last_called_device_entity'], data = {'type': 'tts'}, message = message)
+                self.call_service('notify/alexa_media', target = self.get_state(self.args['last_called_device_entity'], copy = False), data = {'type': 'tts'}, message = message)
             return
             
         source = data['source']
