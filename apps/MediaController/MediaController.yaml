@@ -3,6 +3,7 @@ MediaController:
   class: MediaController
   event: MEDIA_CONTROLLER_COMMAND
   last_called_room_entity: sensor.alexa_last_called_room
+  last_called_device_entity: sensor.alexa_last_called_device
   device_config:
     media_player.livingroom_tv:
       source_command_delay: 3
