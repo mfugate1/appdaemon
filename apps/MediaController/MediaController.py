@@ -32,7 +32,7 @@ class MediaController(hass.Hass):
             
         if source not in room_info['sources']:
             self.log("[media_controller_command] {} is not a source in {}".format(source, room))
-            self.call_service('notify/alexa_media', target = self.get_state(self.args['last_called_room_device'], copy = False), data = {type: 'tts'}, message = "{} is not a source in {}".format(source, room))
+            self.call_service('notify/alexa_media', target = self.get_state(self.args['last_called_device_entity'], copy = False), data = {type: 'tts'}, message = "{} is not a source in {}".format(source, room))
             return
         
         self.log("[media_controller_command] Room = {}, Source = {}".format(room, data['source']))
