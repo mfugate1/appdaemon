@@ -83,15 +83,17 @@ class BedController(hass.Hass):
         
         self.cancel_state_listeners()
         
-        if foundationStatus.fsCurrentPositionPresetRight != 'Not at preset':
-            self.call_service('input_select/select_option', entity_id = self.args['preset_entity'], option = foundationStatus.fsCurrentPositionPresetRight)
-            
-        self.call_service('input_number/set_value', entity_id = self.args['foot_position_entity'], value = foundationStatus.fsRightFootPosition)
-        self.call_service('input_number/set_value', entity_id = self.args['head_position_entity'], value = foundationStatus.fsRightHeadPosition)
+        if foundationStatus != None:
+            if foundationStatus.fsCurrentPositionPresetRight != 'Not at preset':
+                self.call_service('input_select/select_option', entity_id = self.args['preset_entity'], option = foundationStatus.fsCurrentPositionPresetRight)
+
+            self.call_service('input_number/set_value', entity_id = self.args['foot_position_entity'], value = foundationStatus.fsRightFootPosition)
+            self.call_service('input_number/set_value', entity_id = self.args['head_position_entity'], value = foundationStatus.fsRightHeadPosition)
         
         sleeperStatus = self.client.beds_with_sleeper_status()[0]
 
-        self.call_service('input_number/set_value', entity_id = self.args['left_sleep_number_entity'], value = sleeperStatus.left.sleepNumber)
-        self.call_service('input_number/set_value', entity_id = self.args['right_sleep_number_entity'], value = sleeperStatus.right.sleepNumber)
+        if sleeperStatus != None:
+            self.call_service('input_number/set_value', entity_id = self.args['left_sleep_number_entity'], value = sleeperStatus.left.sleepNumber)
+            self.call_service('input_number/set_value', entity_id = self.args['right_sleep_number_entity'], value = sleeperStatus.right.sleepNumber)
         
         self.start_state_listeners()
