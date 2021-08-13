@@ -59,21 +59,21 @@ class BedController(hass.Hass):
         
     def preset(self, entity, attribute, old, new, kwargs):
         self.log('[preset] Setting bed to preset position {}'.format(new))
-        self.cancel_update_timer()
+        #self.cancel_update_timer()
         self.client.preset(BED_PRESETS[new], 'r')
-        self.start_update_timer()
+        #self.start_update_timer()
     
     def set_position(self, entity, attribute, old, new, kwargs):
         self.log('[set_position] Setting bed position, actuator = {}, position = {}'.format(kwargs['actuator'], new))
-        self.cancel_update_timer()
+        #self.cancel_update_timer()
         self.client.set_foundation_position('r', kwargs['actuator'], float(new))
-        self.start_update_timer()
+        #self.start_update_timer()
     
     def set_sleepnumber(self, entity, attribute, old, new, kwargs):
         self.log('[set_sleepnumber] Setting bed sleep number, side = {}, value = {}'.format(kwargs['side'], new))
-        self.cancel_update_timer()
+        #self.cancel_update_timer()
         self.client.set_sleepnumber(kwargs['side'], float(new))
-        self.start_update_timer()
+        #self.start_update_timer()
         
     def stop_motion(self, event_name, data, kwargs):
         self.client.stop_motion('r')
